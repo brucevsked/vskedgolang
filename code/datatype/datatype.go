@@ -151,12 +151,12 @@ func main() {
 	myMap["banana"] = 9
 
 	for fruitName, fruitSeq := range myMap {
-		fmt.Println("%s: %d", fruitName, fruitSeq)
+		fmt.Printf("%s: %d \n", fruitName, fruitSeq)
 	}
 
 	myAge := 88
 	point1 := &myAge
-	fmt.Println("myAge=%d, *p=%d, p=%p ", myAge, *point1, point1)
+	fmt.Printf("myAge=%d, *p=%d, p=%p \n", myAge, *point1, point1)
 
 	//==========1双向通道（默认）
 	bidirCh := make(chan string)
