@@ -1,0 +1,7 @@
+
+1* 查看当前go版本
+go version
+
+2* 编译并运行go文件
+go run 文件名
+go run helloworld.go
