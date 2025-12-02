@@ -5,3 +5,48 @@ go version
 2* 编译并运行go文件
 go run 文件名
 go run helloworld.go
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1. Go 的并发模型（CSP 模型）
+全称：Communicating Sequential Processes（通信顺序进程）
+核心思想：
+不要通过共享内存来通信，而是通过通信来共享内存。
+
+实现方式：
+使用 goroutine 作为轻量级并发单元，通过 channel 进行安全通信，避免显式锁。
+特点：
+简洁、安全（无数据竞争）
+适合高并发 I/O 密集型任务（如 Web 服务、API 网关）
+2. Goroutine（协程）
+是什么：
+Go 运行时管理的轻量级线程（用户态线程），由 Go 调度器（scheduler）调度。
+特点：
+启动成本极低（初始栈仅 2KB，可动态增长）
+一个 Go 程序可轻松创建 数万甚至百万级 goroutine
+使用 go 关键字启动
+3. Channel（通道）
+是什么：
+goroutine 之间通信的管道，用于安全传递数据。
+特点：
+类型安全（如 chan int 只能传 int）
+天然并发安全（无需加锁）
+支持同步（无缓冲 channel）和异步（有缓冲 channel）
+4. Select（多路复用）
+是什么：
+类似 switch，但用于监听多个 channel 的读写操作。
+作用：
+同时等待多个 channel 的就绪状态
+实现非阻塞 I/O、超时控制、goroutine 协调等
