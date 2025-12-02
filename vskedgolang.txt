@@ -6,6 +6,10 @@ go version
 go run 文件名
 go run helloworld.go
 
+3* 查看go安装路径
+go env GOROOT
+
+
 
 
 
