@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 type Rectangle struct {
 	Width  float64
@@ -153,5 +156,38 @@ func main() {
 	myAge := 88
 	point1 := &myAge
 	fmt.Println("myAge=%d, *p=%d, p=%p ", myAge, *point1, point1)
+
+	//==========1双向通道（默认）
+	bidirCh := make(chan string)
+	go func() {
+		bidirCh <- "hello from bidir channel"
+	}()
+
+	fmt.Println("Bidir:", <-bidirCh)
+
+	ch1 := make(chan int)
+	//声明一个 “只能发送”的变量，指向它
+	sendOnly := chan<- int(ch1)
+	go func() {
+		sendOnly <- 42
+	}()
+
+	fmt.Println("Send-only sent:", <-ch1)
+
+	ch2 := make(chan bool)
+	//声明一个“只能接收”的变量
+	recvOnly := (<-chan bool)(ch2)
+	go func() {
+		//通过原通道发送(send-only 不能发 但ch2 可以)
+		ch2 <- true
+	}()
+
+	myResult1 := <-recvOnly
+	fmt.Println("Recv-only received:", myResult1)
+
+	close(ch1)
+	close(ch2)
+
+	time.Sleep(100 * time.Millisecond)
 
 }
