@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"time"
 )
@@ -189,5 +190,11 @@ func main() {
 	close(ch2)
 
 	time.Sleep(100 * time.Millisecond)
+
+	err1 := errors.New(" something went wrong ")
+	fmt.Println(err1)
+	userInput := "this is user Error"
+	myFormatError := fmt.Errorf("invalid input: %s", userInput)
+	fmt.Println(myFormatError)
 
 }
