@@ -9,6 +9,21 @@ go run helloworld.go
 3* 查看go安装路径
 go env GOROOT
 
+4* 初始化模块,生成go.mod
+go mod init <module-name>
+go mod init my-web-app
+
+5* 自动添加缺失的依赖(添加缺失的依赖，删除未使用依赖)更新go.sum
+go mod tidy
+
+6* 依赖获取与更新
+添加新依赖(自动更新go.mod)
+go get github.com/go-sql-driver/mysql
+升级到最新依赖 -u表示 升级包括间接依赖
+go get -u github.com/go-sql-driver/mysql
+降级依赖
+go get github.com/go-sql-driver/mysql@v1.5.0
+
 
 
 
