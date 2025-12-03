@@ -1,0 +1,20 @@
+select * from device;
+select * from devicetype;
+select b.id bid,b.name bname,c.id cid,c.name cname from deviceandtype a LEFT JOIN device b on a.deviceid=b.id LEFT JOIN devicetype c on a.devicetypeid=c.id;
+
+select a.id bid,a.name bname,a.remark bremark,b.id pid,b.name pname,b.remark premark from device a LEFT JOIN device b on a.parentid=b.id;
+
+select * from device limit 0,10;
+select * from device limit 10,10;
+select * from device limit 20,10;
+
+select * from device a where a.parentid is not null;
+
+select * from devicetype;
+
+insert into devicetype(id,name,remark) VALUES(51,'数据传输单元','这是一台dtu设备，用于使用tcp,udp,mqtt等协议进行数据透传。');
+select * from devicetype where id=51;
+UPDATE devicetype set name='数据传输单元DTU',remark='这是一台dtu设备，用于使用tcp,udp,mqtt等协议进行数据透传。可以使用上位机软件进行操作，支持AT指令。' where id=51;
+select * from devicetype where id=51;
+delete from devicetype where id=51;
+
