@@ -4,7 +4,7 @@
 gfcli:
   gen:
     dao:
-      - link: "mysql:starenglishbook:starenglishbook@tcp(127.0.0.1:3306)/starenglishbook?loc=Local"
+      - link: "mysql:starenglishbook:starenglishbook@tcp(127.0.0.1:3306)/starenglishbook?loc=Local&charset=utf8mb4"
         descriptionTag: true
 
   docker:

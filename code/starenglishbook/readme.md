@@ -1102,6 +1102,307 @@ Token解析出用户信息，提供获取用户信息接口;
 
 记得提交并合并一下代码哟。
 
+## 单词管理
+在本章中，您将学习到程序员的核心技能——大名鼎鼎的增删查改操作，即Create（创建）、Read（读取）、Update（更新）、Delete（删除），简称为CRUD。这些操作构成了大多数应用程序的基础功能，通过它们我们将完成以下业务：
+
+新增单词；
+编辑单词；
+单词分页列表；
+单词详情；
+删除单词。
+
+RESTful简介
+RESTful是一种基于REST(Representational State Transfer)架构风格的Web服务设计原则。它主要用于创建和访问Web资源，并具有以下特点：
+
+资源：RESTful服务中的每一个对象都被视为资源，可以通过URI（统一资源标识符）进行访问。例如，/words可以表示单词资源；
+HTTP动词：RESTful服务主要使用HTTP Method 来执行操作：
+GET：读取资源
+POST：创建资源
+PUT：更新资源
+PATCH：更新部分资源
+DELETE：删除资源
+表现层状态转移：客户端通过请求特定的URI来操作资源，服务器通过响应返回资源的表现形式（通常为JSON或XML）。
+统一接口：通过标准化的接口设计，使得不同的系统能够互相通信。
+通过这些原则，RESTful架构使得Web服务更加简洁、灵活和可扩展。以单词的CRUD为例。
+
+操作	Method	URI	描述
+创建 (Create)	POST	/words	创建一个新的单词
+读取 (Read)	GET	/words	获取所有单词列表
+读取 (Read)	GET	/words/{id}	根据ID获取单个单词
+更新 (Update)	PUT	/words/{id}	更新指定ID的单词
+更新 (Update)	PATCH	/words/{id}	更新指定ID的单词的部分字段
+删除 (Delete)	DELETE	/words/{id}	删除指定ID的单词
+
+建立数据表
+建立一张新的数据表，用以保存单词，并且加上联合唯一索引uid, word，限制单个用户不能添加相同的单词。
+CREATE TABLE words (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    uid INT UNSIGNED NOT NULL,
+    word VARCHAR ( 255 ) NOT NULL,
+    definition TEXT,
+    example_sentence TEXT,
+    chinese_translation VARCHAR ( 255 ),
+    pronunciation VARCHAR ( 255 ),
+    proficiency_level SMALLINT UNSIGNED,
+    created_at DATETIME,
+    updated_at DATETIME
+);
+
+ALTER TABLE words ADD UNIQUE (uid, word);
+
+字段名	类型	解释
+id	INT UNSIGNED	主键，自动递增，唯一标识单词
+uid	INT UNSIGNED	用户id，标记该单词所属用户
+word	VARCHAR(255)	单词，不允许为空
+definition	TEXT	单词定义
+example_sentence	TEXT	示例句子
+chinese_translation	VARCHAR(255)	单词的中文翻译
+pronunciation	VARCHAR(255)	单词的发音
+proficiency_level	SMALLINT	单词掌握程度，1级最低，5级最高
+created_at	DATETIME	记录创建时间
+updated_at	DATETIME	记录最后更新时间
+
+生成单词数据模型
+$ gf gen dao
+
+执行成功后，会生成下列文件：
+
+internal/model/do/words.go
+internal/model/entity/words.go
+internal/dao/internal/words.go
+internal/dao/words.go
+
+根据RESTful风格，新增应该使用POST方式，祭出我们的三板斧，无情的搬砖式开发。
+
+添加 Api
+api/words/v1/words.go
+package v1
+
+import "github.com/gogf/gf/v2/frame/g"
+
+
+type ProficiencyLevel uint
+
+const (
+	ProficiencyLevel1 ProficiencyLevel = iota + 1
+	ProficiencyLevel2
+	ProficiencyLevel3
+	ProficiencyLevel4
+	ProficiencyLevel5
+)
+
+type CreateReq struct {
+	g.Meta             `path:"words" method:"post" sm:"创建" tags:"单词"`
+	Word               string           `json:"word" v:"required|length:1,100" dc:"单词"`
+	Definition         string           `json:"definition" v:"required|length:1,300" dc:"单词定义"`
+	ExampleSentence    string           `json:"example_sentence" v:"required|length:1,300" dc:"例句"`
+	ChineseTranslation string           `json:"chinese_translation" v:"required|length:1,300" dc:"中文翻译"`
+	Pronunciation      string           `json:"pronunciation" v:"required|length:1,100" dc:"发音"`
+	ProficiencyLevel   ProficiencyLevel `json:"proficiency_level" v:"required|between:1,5" dc:"熟练度，1最低，5最高"`
+}
+
+type CreateRes struct {
+}
+
+在这里我们自定义了一个数据类型ProficiencyLevel，表示单词的掌握程度，并定义了五个枚举值：ProficiencyLevel1-5从低到高表示级别。
+
+这种自定义类型加上固定枚举值的方式是一种高级的程序设计技巧，可以广泛用在各类状态上，比如订单状态，项目阶段等。新手在编程总喜欢使用int一把梭，最后造成代码里全是1,2,3...这种数字状态，导致代码的可读性和可维护性较差。
+
+执行生成api命令
+gf gen ctrl
+
+编写Logic
+同样的，定义Words对象，新建New函数用作实例化。
+
+internal/logic/words/words.go
+package words
+
+import (
+	"context"
+	v1 "star/api/words/v1"
+	"star/internal/dao"
+	"star/internal/model/do"
+
+	"github.com/gogf/gf/v2/errors/gerror"
+)
+
+type Words struct {
+}
+
+func New() *Words {
+	return &Words{}
+}
+
+type CreateInput struct {
+	Uid                uint
+	Word               string
+	Definition         string
+	ExampleSentence    string
+	ChineseTranslation string
+	Pronunciation      string
+	ProficiencyLevel   v1.ProficiencyLevel
+}
+
+func (w *Words) Create(ctx context.Context, in CreateInput) error {
+	var cls = dao.Words.Columns()
+
+	count, err := dao.Words.Ctx(ctx).
+		Where(cls.Uid, in.Uid).
+		Where(cls.Word, in.Word).Count()
+	if err != nil {
+		return err
+	}
+	if count > 0 {
+		return gerror.New("单词已存在")
+	}
+
+	_, err = dao.Words.Ctx(ctx).Data(do.Words{
+		Uid:                in.Uid,
+		Word:               in.Word,
+		Definition:         in.Definition,
+		ExampleSentence:    in.ExampleSentence,
+		ChineseTranslation: in.ChineseTranslation,
+		Pronunciation:      in.Pronunciation,
+		ProficiencyLevel:   in.ProficiencyLevel,
+	}).Insert()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+
+在Logic中我们也需要确保同一用户单词不能重复，和数据库保持一致。
+
+account logic
+单词表中保存有uid字段，我们需要在logic/users包中封装一个GetUid函数提供uid。
+
+internal/logic/users/users_account.go
+func (u *Users) GetUid(ctx context.Context) (uint, error) {  
+    user, err := u.Info(ctx)  
+    if err != nil {  
+       return 0, err  
+    }  
+    return user.Id, nil  
+}
+
+Controller调用Logic
+在创建单词的控制器中，我们需要调用account和words两个logic，我们将他封装到控制器中。
+
+internal/controller/words/words_new.go
+...
+
+
+package words  
+  
+import (  
+    "star/api/words"  
+    usersLogic "star/internal/logic/users"  
+    wordsLogic "star/internal/logic/words"  
+)  
+  
+type ControllerV1 struct {  
+    users *usersLogic.Users  
+    words *wordsLogic.Words  
+}  
+  
+func NewV1() words.IWordsV1 {  
+    return &ControllerV1{  
+        users: usersLogic.New(),  
+        words: wordsLogic.New(),  
+    }  
+}
+
+internal/controller/words/words_v1_create.go
+package words  
+  
+import (  
+    "context"  
+  
+    "star/api/words/v1"
+    "star/internal/logic/words"
+)  
+  
+func (c *ControllerV1) Create(ctx context.Context, req *v1.CreateReq) (res *v1.CreateRes, err error) {  
+    uid, err := c.users.GetUid(ctx)  
+    if err != nil {  
+       return nil, err  
+    }  
+    err = c.words.Create(ctx, words.CreateInput {  
+       Uid:                uid,  
+       Word:               req.Word,  
+       Definition:         req.Definition,  
+       ExampleSentence:    req.ExampleSentence,  
+       ChineseTranslation: req.ChineseTranslation,  
+       Pronunciation:      req.Pronunciation,  
+       ProficiencyLevel:   req.ProficiencyLevel, 
+    })  
+    return nil, err  
+}
+
+在Controller中调用两个Logic层级的方法：users.GetUid和words.Create来实现功能。注意，不要在words.Create中直接调用users.GetUid，这样会加重words包的耦合。
+
+最佳实验是，尽量保证Logic函数的功能单一化，在Controller中多次调用Logic完成功能。
+
+注册控制器
+internal/cmd/cmd.go
+package cmd  
+
+...
+
+var (  
+    Main = gcmd.Command{  
+       Name:  "main",  
+       Usage: "main",  
+       Brief: "start http server",  
+       Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {  
+          s := g.Server()  
+          s.Group("/", func(group *ghttp.RouterGroup) {  
+             group.Middleware(ghttp.MiddlewareHandlerResponse)  
+             group.Group("/v1", func(group *ghttp.RouterGroup) {  
+                group.Bind(  
+                   users.NewV1(),  
+                )  
+                group.Group("/", func(group *ghttp.RouterGroup) {  
+                   group.Middleware(middleware.Auth)  
+                   group.Bind(  
+                      account.NewV1(),  
+                      words.NewV1(),  
+                   )  
+                })  
+             })  
+          })  
+          s.Run()  
+          return nil  
+       },  
+    }  
+)
+
+控制器注册到与account.NewV1()同一个路由组下，确保能经过Auth中间件。
+接口测试 这里有很多坑点，建议用apifox之类的接口请求软件来发送，不要用cmd或powershell会出乱码，如果非要用powershell要升到新版本如7.5.4以上
+# PowerShell 版本7用以下命令 记得要换token呀
+Invoke-WebRequest -Uri "http://127.0.0.1:8000/v1/words" `
+  -Method POST `
+  -Headers @{
+    "Authorization" = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6MSwiVXNlcm5hbWUiOiJvbGRtZSIsImV4cCI6MTc2NDc2OTQ0MH0.6zMX7ezw4w2lJIFLEtESas_ptLx9nCNbMLf0xleWpTg"
+    "Content-Type" = "application/json; charset=utf-8"
+  } `
+  -Body '{
+    "word": "example",
+    "definition": "A representative form or pattern.",
+    "example_sentence": "This is an example sentence.",
+    "chinese_translation": "例子",
+    "pronunciation": "ɪɡˈzɑːmp(ə)l",
+    "proficiency_level": 3
+  }'
+
+{
+    "code": 0,
+    "message": "",
+    "data": null
+}
+
+
 
 
 

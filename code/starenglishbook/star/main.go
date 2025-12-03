@@ -14,7 +14,6 @@ import (
 
 func main() {
 	var err error
-
 	// 全局设置i18n
 	g.I18n().SetLanguage("zh-CN")
 
