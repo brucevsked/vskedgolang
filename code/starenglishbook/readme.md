@@ -748,4 +748,362 @@ Controller层调用Logic层完成业务逻辑；
 接口参数校检与i18n。
 提交吧
 
+## 会话管理
+在本章中，我们需要完成用户的会话管理功能：
+
+登录；
+获取用户信息。
+JWT 简介
+HTTP 是一种无状态协议，这意味着每次请求都是独立的，没有上下文关系。这就需要一种机制来保存用户的状态信息，Cookie 就是其中一种解决方案。Cookie 是存储在用户浏览器中的小块数据，可以在后续请求中发送给服务器，用于保持会话状态。然而，Cookie 也有一些限制，例如跨域问题和安全性问题。相比之下，JWT 是一种更现代的解决方案，可以通过 HTTP 头部传递，无需依赖 Cookie，且具有更好的跨域支持和安全性。
+
+JWT全名Json Web Token，其看起来是一串无序的字符串。由三部分组成：头部（Header）、负载（Payload）和签名（Signature）。
+
+在前后端分离的项目中，用户登录后，服务端生成JWT并返回，客户端自行保存它，例如浏览器本地储存Local Storage。在后续的请求中，通常在Header头的Authorization字段中携带它，以完成用户身份认证。
+安装 golang-jwt
+生成验证JWT需要复杂的加密解密的逻辑，自己编写需费一番手脚。所幸的是，前人已经造好了轮子，直接安装调用即可。
+
+$ go get -u github.com/golang-jwt/jwt/v5
+
+登录接口收到用户名和密码后，与数据库中的信息做比对，如果正确则生成Token返回，否则提示”用户名或密码错误“。
+
+同样遵循三板斧开发原则：编写Api生成Controller，编写核心逻辑Logic，Controller调起Logic。
+添加Api
+api/users/v1/users.go
+...
+  
+type LoginReq struct {  
+    g.Meta   `path:"users/login" method:"post" sm:"登录" tags:"用户"`  
+    Username string `json:"username" v:"required|length:3,12"`  
+    Password string `json:"password" v:"required|length:6,16"`  
+}  
+  
+type LoginRes struct {  
+    Token string `json:"token" dc:"在需要鉴权的接口中header加入Authorization: token"`
+}
+别忘记执行gf gen ctrl哦！每次变更Api都需要执行它，后文不再重复提示。
+
+$ gf gen ctrl
+
+编写Logic
+登录逻辑的的难点在于生成Token。准备好一个随机字符串JwtKey用作签名。
+
+internal/consts/consts.go
+package consts  
+  
+const (  
+    JwtKey = "xiujiezhiliang888zhen666tailihai"  
+)
+
+编写核心逻辑，先根据用户名进行Where查询，获取到数据后，将密码再次加密，如果和数据库中的密文一致则说明是合法用户，生成Token返回。
+
+internal/logic/users/users_account.go
+package users  
+  
+import (  
+    "context"  
+    "errors"
+    "time"  
+    
+    "github.com/golang-jwt/jwt/v5"
+    
+    "star/internal/dao"    
+    "star/internal/model/entity"    
+    "star/utility"
+)
+  
+type jwtClaims struct {  
+    Id       uint  
+    Username string  
+    jwt.RegisteredClaims  
+}  
+  
+func (u *Users) Login(ctx context.Context, username, password string) (tokenString string, err error) {  
+    var user entity.Users  
+    err = dao.Users.Ctx(ctx).Where("username", username).Scan(&user)  
+    if err != nil {  
+       return "", gerror.New("用户名或密码错误")  
+    }  
+  
+    if user.Id == 0 {  
+       return "", gerror.New("用户不存在")  
+    }  
+  
+    // 将密码加密后与数据库中的密码进行比对  
+    if user.Password != u.encryptPassword(password) {  
+       return "", gerror.New("用户名或密码错误")  
+    }  
+  
+    // 生成token  
+    uc := &jwtClaims{  
+       Id:       user.Id,  
+       Username: user.Username,  
+       RegisteredClaims: jwt.RegisteredClaims{  
+          ExpiresAt: jwt.NewNumericDate(time.Now().Add(6 * time.Hour)),  
+       },  
+    }  
+    token := jwt.NewWithClaims(jwt.SigningMethodHS256, uc)
+    return token.SignedString([]byte(consts.JwtKey))
+}
+
+从上面的代码可以看到，我们需要声明一个结构体userClaims保存签名信息，这里保存了Id和Username并设置了Token有效期为 6 个小时。最后的声明对象还需要调用SignedString方法传入JwtKey生成签名。
+
+Controller调用Logic
+internal/controller/users/users_v1_login.go
+package users
+
+import (
+	"context"
+
+	v1 "star/api/users/v1"
+)
+
+func (c *ControllerV1) Login(ctx context.Context, req *v1.LoginReq) (res *v1.LoginRes, err error) {
+	token, err := c.users.Login(ctx, req.Username, req.Password)
+	if err != nil {
+		return
+	}
+	return &v1.LoginRes{Token: token}, nil
+}
+
+接口测试
+如果项目没启动，先启动项目哟
+gf run main.go
+
+$ curl -X POST http://127.0.0.1:8000/v1/users/login -H "Content-Type: application/json" -d "{\"username\":\"oldme\", \"password\":\"123456\"}"
+
+{
+    "code":0,
+    "message":"",
+    "data":{
+        "token":"eyJhbGciOi...ZY_ATzOU"
+    }
+}
+
+用户信息是一个敏感的接口，它必须要保证用户登录之后才能访问。同样的，用户编辑单词库相关的接口也需要权限认证。我们不可能在每个需要认证的接口前都编写同样的代码用以权限认证。所以要编写一个中间件/拦截器来统一验证Token是否有效。
+
+中间件/拦截器是处理 HTTP 请求和响应的函数或组件。它们通常用于在请求到达最终处理器之前或响应发送给客户端之前执行一些操作。
+
+## Auth 中间件
+GoFrame 提供了优雅的中间件请求控制方式， 该方式也是主流的 WebServer 提供的请求流程控制方式， 基于中间件设计可以为 WebServer 提供更灵活强大的插件机制。
+
+internal/logic/middleware/auth.go
+package middleware
+
+import (
+    "net/http"
+
+    "star/internal/consts"
+
+    "github.com/gogf/gf/v2/net/ghttp"
+    "github.com/golang-jwt/jwt/v5"
+)
+
+func Auth(r *ghttp.Request) {
+    var tokenString = r.Header.Get("Authorization")
+    token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+        return []byte(consts.JwtKey), nil
+    })
+    if err != nil || !token.Valid {
+        r.Response.WriteStatus(http.StatusForbidden)
+        r.Exit()
+    }
+    r.Middleware.Next()
+}
+
+r.Middleware.Next() 这段代码是中间件的控制核心，放在函数的最后面表示它是一个前置中间件，代表请求前调用。放在最前面则是后置中间件，在请求后生效。
+
+r.Header.Get("Authorization")从HTTP Header中获取Authorization字段，即获取前端传过来的Token。jwt.Parse 解析Token后再通过token.Valid验证是否有效，如果失效则返回 HTTP StatusForbidden 403 状态码，即权限不足，反之调用r.Middleware.Next()进入下一步。
+
+编写好的中间件留用，等接口开发完成后统一注册到cmd中。接下来又是愉快的三板斧法则。
+
+添加Api
+api/account/v1/account.go
+package v1  
+  
+import (  
+    "github.com/gogf/gf/v2/frame/g"  
+)  
+  
+type InfoReq struct {  
+    g.Meta `path:"account/info" method:"get" sm:"获取信息" tags:"用户"`  
+}  
+  
+type InfoRes struct {  
+    Username  string      `json:"username" dc:"用户名"`  
+    Email     string      `json:"email" dc:"邮箱"`  
+    CreatedAt *gtime.Time `json:"created" dc:"创建时间"`  
+    UpdatedAt *gtime.Time `json:"update" dc:"更新时间"`  
+}
+
+InfoRes结构体定义了四个响应数据，其中*gtime.Time数据类型是gtime组件提供的框架时间类型。
+
+$ gf gen ctrl
+
+编写Logic
+internal/logic/users/users_account.go
+package users  
+  
+import (  
+    "context"  
+    "errors"
+    "time"  
+    
+    "github.com/gogf/gf/v2/frame/g"
+    "github.com/golang-jwt/jwt/v5"
+    "star/internal/dao"    
+    "star/internal/model/entity"    
+    "star/utility"
+)
+
+...
+
+func (u *Users) Info(ctx context.Context) (user *entity.Users, err error) {  
+    tokenString := g.RequestFromCtx(ctx).Request.Header.Get("Authorization")  
+    tokenClaims, _ := jwt.ParseWithClaims(tokenString, &jwtClaims{}, func(token *jwt.Token) (interface{}, error) {  
+       return  []byte(consts.JwtKey), nil  
+    })  
+  
+    if claims, ok := tokenClaims.Claims.(*jwtClaims); ok && tokenClaims.Valid {  
+       err = dao.Users.Ctx(ctx).Where("id", claims.Id).Scan(&user)  
+    }  
+    return  
+}
+
+在Logic中不能直接获取HTTP对象，需要使用g.RequestFromCtx(ctx).Request从上下文中获取。获取Token后解析出用户ID，调用Scan 方法将查询结果赋值给entity.Users结构体。
+
+Scan方法是一个非常强大的方法，它会根据给定的参数类型自动识别并转换，是数据查询操作中的常客。
+Controller调用Logic
+同样将logic注册到控制器中。
+
+internal/controller/account/account_new.go
+...
+  
+package account  
+  
+import (  
+    "star/api/account"  
+    "star/internal/logic/users"
+)  
+  
+type ControllerV1 struct {  
+    users *users.Users  
+}  
+  
+func NewV1() account.IAccountV1 {  
+    return &ControllerV1{  
+        users: users.New(),  
+    }  
+}
+
+internal/controller/account/account_v1_info.go
+package account  
+  
+import (  
+    "context"  
+  
+    "star/api/account/v1"
+)  
+  
+func (c *ControllerV1) Info(ctx context.Context, req *v1.InfoReq) (res *v1.InfoRes, err error) {  
+    user, err := c.users.Info(ctx)  
+    if err != nil {  
+       return nil, err  
+    }  
+    return &v1.InfoRes{  
+       Username:  user.Username,  
+       Email:     user.Email,  
+       CreatedAt: user.CreatedAt,  
+       UpdatedAt: user.UpdatedAt,  
+    }, nil  
+}
+
+注册新的控制器
+使用group.Group新增一个路由分组，并使用group.Middleware注册Auth中间件，凡是在本组下的控制器在访问前都需要经过认证。
+
+internal/cmd/cmd.go
+package cmd  
+  
+import (  
+    "context"  
+  
+    "github.com/gogf/gf/v2/frame/g"
+    "github.com/gogf/gf/v2/net/ghttp"
+    "github.com/gogf/gf/v2/os/gcmd"
+    "star/internal/controller/account"
+    "star/internal/controller/users"
+    "star/internal/logic/middleware"
+)  
+  
+var (  
+    Main = gcmd.Command{  
+       Name:  "main",  
+       Usage: "main",  
+       Brief: "start http server",  
+       Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {  
+          s := g.Server()  
+          s.Group("/", func(group *ghttp.RouterGroup) {  
+             group.Middleware(ghttp.MiddlewareHandlerResponse)  
+             group.Group("/v1", func(group *ghttp.RouterGroup) {  
+                group.Bind(  
+                   users.NewV1(),  
+                )  
+                group.Group("/", func(group *ghttp.RouterGroup) {  
+                   group.Middleware(middleware.Auth)  
+                   group.Bind(  
+                      account.NewV1(),  
+                   )  
+                })  
+             })  
+          })  
+          s.Run()  
+          return nil  
+       },  
+    }  
+)
+
+接口测试
+注意把Authorization换成自己的：
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6MSwiVXNlcm5hbWUiOiJvbGRtZSIsImV4cCI6MTc2NDc2OTQ0MH0.6zMX7ezw4w2lJIFLEtESas_ptLx9nCNbMLf0xleWpTg
+
+$ curl -H "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6MSwiVXNlcm5hbWUiOiJvbGRtZSIsImV4cCI6MTc2NDc2OTQ0MH0.6zMX7ezw4w2lJIFLEtESas_ptLx9nCNbMLf0xleWpTg" http://127.0.0.1:8000/v1/account/info
+
+{
+    "code":0,
+    "message":"",
+    "data":{
+        "username":"oldme",
+        "email":"tyyn1022@gmail.com",
+        "created":"2024-11-08 17:02:16",
+        "update":"2024-11-08 17:02:16"
+    }
+}
+
+## 会话管理总结
+在本章节中，我们使用GoFrame完成了用户的会话管理，提供了登录和获取用户信息两大功能，加深了GoFrame的理解，并学会了以下内容：
+
+声明用户结构体，生成Token；
+Token解析出用户信息，提供获取用户信息接口;
+中间件的基础使用，使用中间件完成用户权限认证；
+分组路由注册中间件。
+关于退出登录
+为什么我们没有开发退出登录功能呢？这是因为JWT本质上是一个无状态的令牌，一旦签发，服务器不会存储它。这导致了在使用 JWT 时，退出登录不能像传统会话那样简单地在服务器端销毁会话。解决JWT退出登录的方案大致有两种，它们各有优劣：
+
+黑名单机制：
+当用户登出或 JWT 被撤销时，将该令牌添加到黑名单数据库中；
+每次请求时，从请求头中提取 JWT，并检查它是否在黑名单中；
+如果令牌在黑名单中，则拒绝请求；
+其优势在于易于实现和维护，适用于大多数情况下；劣势在于需要存储所有被撤销的令牌，可能会导致存储空间增加。
+白名单机制：
+在用户登录时，将生成的 JWT 添加到白名单数据库中；
+每次请求时，从请求头中提取 JWT，并检查它是否在白名单中；
+如果令牌不在白名单中，则拒绝请求。
+其优势在于更高的安全性，只有白名单中的令牌才能被接受，确保了更严格的访问控制。劣势在于复杂性增加，需要在用户登录时将令牌添加到白名单，并在合适的时候移除。
+黑白名单数据一般会储存在非关系型数据库中，例如Redis。
+
+记得提交并合并一下代码哟。
+
+
+
+
+
 
