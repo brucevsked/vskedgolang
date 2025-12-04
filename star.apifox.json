@@ -1,0 +1,2563 @@
+{
+  "apifoxProject": "1.0.0",
+  "$schema": {
+    "app": "apifox",
+    "type": "project",
+    "version": "1.2.0"
+  },
+  "info": {
+    "name": "star",
+    "description": "",
+    "mockRule": {
+      "rules": [],
+      "enableSystemRule": true
+    }
+  },
+  "apiCollection": [
+    {
+      "name": "根目录",
+      "id": 72781107,
+      "auth": {},
+      "securityScheme": {},
+      "parentId": 0,
+      "serverId": "",
+      "description": "",
+      "identityPattern": {
+        "httpApi": {
+          "type": "methodAndPath",
+          "bodyType": "",
+          "fields": []
+        }
+      },
+      "shareSettings": {},
+      "visibility": "SHARED",
+      "moduleId": 6682045,
+      "preProcessors": [
+        {
+          "id": "inheritProcessors",
+          "type": "inheritProcessors",
+          "data": {}
+        }
+      ],
+      "postProcessors": [
+        {
+          "id": "inheritProcessors",
+          "type": "inheritProcessors",
+          "data": {}
+        }
+      ],
+      "inheritPostProcessors": {},
+      "inheritPreProcessors": {},
+      "items": [
+        {
+          "name": "用户",
+          "id": 72861533,
+          "auth": {},
+          "securityScheme": {},
+          "parentId": 0,
+          "serverId": "",
+          "description": "",
+          "identityPattern": {
+            "httpApi": {
+              "type": "inherit",
+              "bodyType": "",
+              "fields": []
+            }
+          },
+          "shareSettings": {},
+          "visibility": "INHERITED",
+          "moduleId": 6682045,
+          "preProcessors": [
+            {
+              "id": "inheritProcessors",
+              "type": "inheritProcessors",
+              "data": {}
+            }
+          ],
+          "postProcessors": [
+            {
+              "id": "inheritProcessors",
+              "type": "inheritProcessors",
+              "data": {}
+            }
+          ],
+          "inheritPostProcessors": {},
+          "inheritPreProcessors": {},
+          "items": [
+            {
+              "name": "获取信息",
+              "api": {
+                "id": "386016665",
+                "method": "get",
+                "path": "/v1/account/info",
+                "parameters": {
+                  "query": [],
+                  "path": [],
+                  "cookie": [],
+                  "header": [
+                    {
+                      "required": false,
+                      "description": "jwt的token",
+                      "type": "string",
+                      "id": "bPWgm015qR",
+                      "example": "",
+                      "enable": true,
+                      "name": "Authorization"
+                    }
+                  ]
+                },
+                "auth": {},
+                "securityScheme": {},
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "143266256",
+                    "code": 200,
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "$ref": "#/definitions/225531310",
+                      "description": ""
+                    },
+                    "description": "",
+                    "contentType": "json",
+                    "mediaType": "application/json",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "none",
+                  "parameters": [],
+                  "required": false,
+                  "mediaType": "",
+                  "examples": [],
+                  "oasExtensions": ""
+                },
+                "description": "",
+                "tags": [
+                  "用户"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 6,
+                "cases": [
+                  {
+                    "id": 324708342,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "成功",
+                    "responseId": "143266256",
+                    "parameters": {
+                      "path": [],
+                      "query": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "type": "none",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 6682045,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {},
+                    "inheritPreProcessors": {}
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 6682045,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {},
+                "inheritPreProcessors": {}
+              }
+            },
+            {
+              "name": "登录",
+              "api": {
+                "id": "386016666",
+                "method": "post",
+                "path": "/v1/users/login",
+                "parameters": {
+                  "query": [],
+                  "path": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "auth": {},
+                "securityScheme": {},
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "176168322",
+                    "code": 200,
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "$ref": "#/definitions/225531312",
+                      "description": ""
+                    },
+                    "description": "",
+                    "contentType": "json",
+                    "mediaType": "application/json",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "application/json",
+                  "parameters": [],
+                  "jsonSchema": {
+                    "$ref": "#/definitions/225531311",
+                    "description": ""
+                  },
+                  "required": false,
+                  "mediaType": "application/json",
+                  "examples": [],
+                  "oasExtensions": ""
+                },
+                "description": "",
+                "tags": [
+                  "用户"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 12,
+                "cases": [
+                  {
+                    "id": 324708343,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "成功",
+                    "responseId": "176168322",
+                    "parameters": {
+                      "path": [],
+                      "query": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "data": "",
+                      "type": "application/json",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 6682045,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {},
+                    "inheritPreProcessors": {}
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 6682045,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {},
+                "inheritPreProcessors": {}
+              }
+            },
+            {
+              "name": "注册",
+              "api": {
+                "id": "386016667",
+                "method": "post",
+                "path": "/v1/users/register",
+                "parameters": {
+                  "path": [],
+                  "query": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "auth": {},
+                "securityScheme": {},
+                "commonParameters": {},
+                "responses": [
+                  {
+                    "id": "178423528",
+                    "code": 200,
+                    "headers": [],
+                    "jsonSchema": {
+                      "$ref": "#/definitions/225531314",
+                      "description": ""
+                    },
+                    "description": "",
+                    "contentType": "json",
+                    "mediaType": "application/json",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "application/json",
+                  "parameters": [],
+                  "jsonSchema": {
+                    "$ref": "#/definitions/225531313",
+                    "description": ""
+                  },
+                  "mediaType": "application/json",
+                  "oasExtensions": "",
+                  "required": false,
+                  "additionalContent": []
+                },
+                "description": "",
+                "tags": [
+                  "用户"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 18,
+                "cases": [
+                  {
+                    "id": 324708344,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "成功",
+                    "responseId": "178423528",
+                    "parameters": {
+                      "path": [],
+                      "query": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "data": "",
+                      "type": "application/json",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 6682045,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {},
+                    "inheritPreProcessors": {}
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 6682045,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {},
+                "inheritPreProcessors": {}
+              }
+            }
+          ]
+        },
+        {
+          "name": "单词",
+          "id": 72861534,
+          "auth": {},
+          "securityScheme": {},
+          "parentId": 0,
+          "serverId": "",
+          "description": "",
+          "identityPattern": {
+            "httpApi": {
+              "type": "inherit",
+              "bodyType": "",
+              "fields": []
+            }
+          },
+          "shareSettings": {},
+          "visibility": "INHERITED",
+          "moduleId": 6682045,
+          "preProcessors": [
+            {
+              "id": "inheritProcessors",
+              "type": "inheritProcessors",
+              "data": {}
+            }
+          ],
+          "postProcessors": [
+            {
+              "id": "inheritProcessors",
+              "type": "inheritProcessors",
+              "data": {}
+            }
+          ],
+          "inheritPostProcessors": {},
+          "inheritPreProcessors": {},
+          "items": [
+            {
+              "name": "创建",
+              "api": {
+                "id": "386016668",
+                "method": "post",
+                "path": "/v1/words",
+                "parameters": {
+                  "query": [],
+                  "path": [],
+                  "cookie": [],
+                  "header": [
+                    {
+                      "required": false,
+                      "description": "jwt的token",
+                      "type": "string",
+                      "id": "F4lcTk7aKc",
+                      "example": "",
+                      "enable": true,
+                      "name": "Authorization"
+                    }
+                  ]
+                },
+                "auth": {},
+                "securityScheme": {},
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "101309478",
+                    "code": 200,
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "$ref": "#/definitions/225531316",
+                      "description": ""
+                    },
+                    "description": "",
+                    "contentType": "json",
+                    "mediaType": "application/json",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "application/json",
+                  "parameters": [],
+                  "jsonSchema": {
+                    "$ref": "#/definitions/225531315",
+                    "description": ""
+                  },
+                  "required": false,
+                  "mediaType": "application/json",
+                  "examples": [
+                    {
+                      "name": "示例 1",
+                      "value": "{\r\n    \"word\": \"example\",\r\n    \"definition\": \"A representative form or pattern.\",\r\n    \"example_sentence\": \"This is an example sentence.\",\r\n    \"chinese_translation\": \"例子\",\r\n    \"pronunciation\": \"ɪɡˈzɑːmp(ə)l\",\r\n    \"proficiency_level\": 3\r\n}",
+                      "mediaType": "application/json"
+                    }
+                  ],
+                  "oasExtensions": ""
+                },
+                "description": "",
+                "tags": [
+                  "单词"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 6,
+                "cases": [
+                  {
+                    "id": 324708345,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "成功",
+                    "responseId": "101309478",
+                    "parameters": {
+                      "query": [],
+                      "path": [],
+                      "cookie": [],
+                      "header": [
+                        {
+                          "id": "zDtjrm98Fo",
+                          "relatedId": "F4lcTk7aKc",
+                          "value": "",
+                          "enable": true,
+                          "isDelete": false,
+                          "relatedName": "Authorization"
+                        }
+                      ]
+                    },
+                    "commonParameters": {
+                      "query": [],
+                      "body": [],
+                      "header": [],
+                      "cookie": []
+                    },
+                    "requestBody": {
+                      "parameters": [],
+                      "data": "{\n    \"word\": \"家\",\n    \"definition\": \"mollit Excepteur\",\n    \"example_sentence\": \"id dolore velit\",\n    \"chinese_translation\": \"ullamco velit mollit culpa aliqua\",\n    \"pronunciation\": \"Lorem in pariatur cupidatat\",\n    \"proficiency_level\": 2\n}",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 6682045,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {},
+                    "inheritPreProcessors": {}
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 6682045,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {},
+                "inheritPreProcessors": {}
+              }
+            },
+            {
+              "name": "更新",
+              "api": {
+                "id": "386027868",
+                "method": "put",
+                "path": "/v1/words/{id}",
+                "parameters": {
+                  "query": [],
+                  "path": [
+                    {
+                      "id": "id#0",
+                      "name": "id",
+                      "required": true,
+                      "enable": true,
+                      "description": "",
+                      "example": "",
+                      "type": "integer",
+                      "schema": {
+                        "format": "uint",
+                        "type": "integer"
+                      }
+                    }
+                  ],
+                  "cookie": [],
+                  "header": [
+                    {
+                      "required": false,
+                      "description": "JWT的token",
+                      "type": "string",
+                      "id": "JR0ERVLIue",
+                      "example": "",
+                      "enable": true,
+                      "name": "Authorization"
+                    }
+                  ]
+                },
+                "auth": {},
+                "securityScheme": {},
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "198861114",
+                    "code": 200,
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "$ref": "#/definitions/225544371",
+                      "description": ""
+                    },
+                    "description": "",
+                    "contentType": "json",
+                    "mediaType": "application/json",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "application/json",
+                  "parameters": [],
+                  "jsonSchema": {
+                    "properties": {
+                      "word": {
+                        "description": "单词",
+                        "format": "string",
+                        "maxLength": 100,
+                        "minLength": 1,
+                        "type": "string"
+                      },
+                      "definition": {
+                        "description": "单词定义",
+                        "format": "string",
+                        "maxLength": 300,
+                        "minLength": 1,
+                        "type": "string"
+                      },
+                      "example_sentence": {
+                        "description": "例句",
+                        "format": "string",
+                        "maxLength": 300,
+                        "minLength": 1,
+                        "type": "string"
+                      },
+                      "chinese_translation": {
+                        "description": "中文翻译",
+                        "format": "string",
+                        "maxLength": 300,
+                        "minLength": 1,
+                        "type": "string"
+                      },
+                      "pronunciation": {
+                        "description": "发音",
+                        "format": "string",
+                        "maxLength": 100,
+                        "minLength": 1,
+                        "type": "string"
+                      },
+                      "proficiency_level": {
+                        "description": "熟练度，1最低，5最高",
+                        "format": "v1.ProficiencyLevel",
+                        "maximum": 5,
+                        "minimum": 1,
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "word",
+                      "definition",
+                      "example_sentence",
+                      "chinese_translation",
+                      "pronunciation",
+                      "proficiency_level"
+                    ],
+                    "type": "object",
+                    "x-apifox-orders": [
+                      "word",
+                      "definition",
+                      "example_sentence",
+                      "chinese_translation",
+                      "pronunciation",
+                      "proficiency_level"
+                    ]
+                  },
+                  "required": false,
+                  "mediaType": "application/json",
+                  "examples": [
+                    {
+                      "name": "示例 1",
+                      "value": "{\r\n    \"word\": \"example_update\",\r\n    \"definition\": \"A representative form or pattern.\",\r\n    \"example_sentence\": \"This is an example sentence.\",\r\n    \"chinese_translation\": \"例子2\",\r\n    \"pronunciation\": \"ɪɡˈzɑːmp(ə)l\",\r\n    \"proficiency_level\": 3\r\n}",
+                      "mediaType": "application/json"
+                    }
+                  ],
+                  "oasExtensions": ""
+                },
+                "description": "",
+                "tags": [
+                  "单词"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 12,
+                "cases": [
+                  {
+                    "id": 324714236,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "成功",
+                    "responseId": "198861114",
+                    "parameters": {
+                      "path": [
+                        {
+                          "id": "id#0",
+                          "relatedId": "id#0",
+                          "relatedName": "id",
+                          "name": "id",
+                          "value": "",
+                          "enable": true
+                        }
+                      ],
+                      "query": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "data": "",
+                      "type": "application/json",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 6682045,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {},
+                    "inheritPreProcessors": {}
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 6682045,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {},
+                "inheritPreProcessors": {}
+              }
+            },
+            {
+              "name": "列表",
+              "api": {
+                "id": "386082209",
+                "method": "get",
+                "path": "/v1/words",
+                "parameters": {
+                  "query": [
+                    {
+                      "id": "X5EgTvmNzm",
+                      "name": "word",
+                      "required": false,
+                      "enable": true,
+                      "description": "模糊查询单词",
+                      "type": "string",
+                      "schema": {
+                        "description": "模糊查询单词",
+                        "format": "string",
+                        "type": "string"
+                      }
+                    },
+                    {
+                      "id": "QYUIs76HXR",
+                      "name": "page",
+                      "required": false,
+                      "enable": true,
+                      "description": "页码，默认1",
+                      "type": "integer",
+                      "schema": {
+                        "description": "页码，默认1",
+                        "format": "int",
+                        "type": "integer"
+                      },
+                      "example": "1"
+                    },
+                    {
+                      "id": "blqNV6nNfA",
+                      "name": "size",
+                      "required": false,
+                      "enable": true,
+                      "description": "每页数量，默认10",
+                      "type": "integer",
+                      "schema": {
+                        "description": "每页数量，默认10",
+                        "format": "int",
+                        "type": "integer"
+                      },
+                      "example": "5"
+                    }
+                  ],
+                  "path": [],
+                  "cookie": [],
+                  "header": [
+                    {
+                      "required": false,
+                      "description": "jwt的token",
+                      "type": "string",
+                      "id": "gDo7pU3Nzm",
+                      "example": "",
+                      "enable": true,
+                      "name": "Authorization"
+                    }
+                  ]
+                },
+                "auth": {},
+                "securityScheme": {},
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "111788840",
+                    "code": 200,
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "$ref": "#/definitions/225577523",
+                      "description": ""
+                    },
+                    "description": "",
+                    "contentType": "json",
+                    "mediaType": "application/json",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "none",
+                  "parameters": [],
+                  "required": false,
+                  "mediaType": "",
+                  "examples": [],
+                  "oasExtensions": ""
+                },
+                "description": "",
+                "tags": [
+                  "单词"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 18,
+                "cases": [
+                  {
+                    "id": 324748287,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "成功",
+                    "responseId": "111788840",
+                    "parameters": {
+                      "path": [],
+                      "query": [
+                        {
+                          "name": "word",
+                          "enable": true,
+                          "id": "ZDgvRaR5N8",
+                          "relatedName": "word"
+                        },
+                        {
+                          "name": "page",
+                          "enable": true,
+                          "id": "fFTC7f0Pg4",
+                          "relatedName": "page"
+                        },
+                        {
+                          "name": "size",
+                          "enable": true,
+                          "id": "5BmgHB3oiU",
+                          "relatedName": "size"
+                        }
+                      ],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "type": "none",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 6682045,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {},
+                    "inheritPreProcessors": {}
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 6682045,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {},
+                "inheritPreProcessors": {}
+              }
+            },
+            {
+              "name": "详情",
+              "api": {
+                "id": "386089243",
+                "method": "get",
+                "path": "/v1/words/{id}",
+                "parameters": {
+                  "query": [],
+                  "path": [
+                    {
+                      "id": "id#0",
+                      "name": "id",
+                      "required": true,
+                      "enable": true,
+                      "description": "",
+                      "example": "",
+                      "type": "integer",
+                      "schema": {
+                        "format": "uint",
+                        "type": "integer"
+                      }
+                    }
+                  ],
+                  "cookie": [],
+                  "header": [
+                    {
+                      "required": false,
+                      "description": "jwt的token",
+                      "type": "string",
+                      "id": "m9kGEzlaXg",
+                      "example": "",
+                      "enable": true,
+                      "name": "Authorization"
+                    }
+                  ]
+                },
+                "auth": {},
+                "securityScheme": {},
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "158665223",
+                    "code": 200,
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "$ref": "#/definitions/225581939",
+                      "description": ""
+                    },
+                    "description": "",
+                    "contentType": "json",
+                    "mediaType": "application/json",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "none",
+                  "parameters": [],
+                  "required": false,
+                  "mediaType": "",
+                  "examples": [],
+                  "oasExtensions": ""
+                },
+                "description": "",
+                "tags": [
+                  "单词"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 24,
+                "cases": [
+                  {
+                    "id": 324752723,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "成功",
+                    "responseId": "158665223",
+                    "parameters": {
+                      "path": [
+                        {
+                          "id": "id#0",
+                          "relatedId": "id#0",
+                          "relatedName": "id",
+                          "name": "id",
+                          "value": "",
+                          "enable": true
+                        }
+                      ],
+                      "query": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "type": "none",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 6682045,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {},
+                    "inheritPreProcessors": {}
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 6682045,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {},
+                "inheritPreProcessors": {}
+              }
+            },
+            {
+              "name": "删除",
+              "api": {
+                "id": "386139166",
+                "method": "delete",
+                "path": "/v1/words/{id}",
+                "parameters": {
+                  "query": [],
+                  "path": [
+                    {
+                      "id": "id#0",
+                      "name": "id",
+                      "required": true,
+                      "enable": true,
+                      "description": "",
+                      "example": "",
+                      "type": "integer",
+                      "schema": {
+                        "format": "uint",
+                        "type": "integer"
+                      }
+                    }
+                  ],
+                  "cookie": [],
+                  "header": [
+                    {
+                      "required": false,
+                      "description": "JWT的token",
+                      "type": "string",
+                      "id": "eVUXxPjnj8",
+                      "example": "",
+                      "enable": true,
+                      "name": "Authorization"
+                    }
+                  ]
+                },
+                "auth": {},
+                "securityScheme": {},
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "164647733",
+                    "code": 200,
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "$ref": "#/definitions/225612769",
+                      "description": ""
+                    },
+                    "description": "",
+                    "contentType": "json",
+                    "mediaType": "application/json",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "none",
+                  "parameters": [],
+                  "required": false,
+                  "mediaType": "",
+                  "examples": [],
+                  "oasExtensions": ""
+                },
+                "description": "",
+                "tags": [
+                  "单词"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 30,
+                "cases": [
+                  {
+                    "id": 324785004,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "成功",
+                    "responseId": "164647733",
+                    "parameters": {
+                      "path": [
+                        {
+                          "id": "id#0",
+                          "relatedId": "id#0",
+                          "relatedName": "id",
+                          "name": "id",
+                          "value": "",
+                          "enable": true
+                        }
+                      ],
+                      "query": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "type": "none",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 6682045,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {},
+                    "inheritPreProcessors": {}
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 6682045,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {},
+                "inheritPreProcessors": {}
+              }
+            },
+            {
+              "name": "随机获取单词列表",
+              "api": {
+                "id": "386149015",
+                "method": "get",
+                "path": "/v1/words/rand",
+                "parameters": {
+                  "query": [
+                    {
+                      "id": "TObXS3mi1e",
+                      "name": "limit",
+                      "required": false,
+                      "enable": true,
+                      "description": "限制个数，默认50",
+                      "type": "integer",
+                      "schema": {
+                        "description": "限制个数，默认50",
+                        "format": "uint",
+                        "type": "integer"
+                      }
+                    }
+                  ],
+                  "path": [],
+                  "cookie": [],
+                  "header": [
+                    {
+                      "required": false,
+                      "description": "JWT的token",
+                      "type": "string",
+                      "id": "xfcqhpWA5r",
+                      "example": "",
+                      "enable": true,
+                      "name": "Authorization"
+                    }
+                  ]
+                },
+                "auth": {},
+                "securityScheme": {},
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "187802708",
+                    "code": 200,
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "$ref": "#/definitions/225618320",
+                      "description": ""
+                    },
+                    "description": "",
+                    "contentType": "json",
+                    "mediaType": "application/json",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "none",
+                  "parameters": [],
+                  "required": false,
+                  "mediaType": "",
+                  "examples": [],
+                  "oasExtensions": ""
+                },
+                "description": "",
+                "tags": [
+                  "单词"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 36,
+                "cases": [
+                  {
+                    "id": 324791331,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "成功",
+                    "responseId": "187802708",
+                    "parameters": {
+                      "path": [],
+                      "query": [
+                        {
+                          "name": "limit",
+                          "enable": true,
+                          "id": "mavrEnRTdr",
+                          "relatedName": "limit"
+                        }
+                      ],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "type": "none",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 6682045,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {},
+                    "inheritPreProcessors": {}
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 6682045,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {},
+                "inheritPreProcessors": {}
+              }
+            },
+            {
+              "name": "设置掌握熟练度",
+              "api": {
+                "id": "386158161",
+                "method": "patch",
+                "path": "/v1/words/{id}/level",
+                "parameters": {
+                  "query": [],
+                  "path": [
+                    {
+                      "id": "id#0",
+                      "name": "id",
+                      "required": true,
+                      "enable": true,
+                      "description": "",
+                      "example": "",
+                      "type": "integer",
+                      "schema": {
+                        "format": "uint",
+                        "type": "integer"
+                      }
+                    }
+                  ],
+                  "cookie": [],
+                  "header": [
+                    {
+                      "required": false,
+                      "description": "JWT的token",
+                      "type": "string",
+                      "id": "OnbdS1dfBq",
+                      "example": "",
+                      "enable": true,
+                      "name": "Authorization"
+                    }
+                  ]
+                },
+                "auth": {},
+                "securityScheme": {},
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "179147447",
+                    "code": 200,
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "$ref": "#/definitions/225621427",
+                      "description": ""
+                    },
+                    "description": "",
+                    "contentType": "json",
+                    "mediaType": "application/json",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "application/json",
+                  "parameters": [],
+                  "jsonSchema": {
+                    "properties": {
+                      "level": {
+                        "format": "v1.ProficiencyLevel",
+                        "maximum": 5,
+                        "minimum": 1,
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "level"
+                    ],
+                    "type": "object",
+                    "x-apifox-orders": [
+                      "level"
+                    ]
+                  },
+                  "required": false,
+                  "mediaType": "application/json",
+                  "examples": [],
+                  "oasExtensions": ""
+                },
+                "description": "",
+                "tags": [
+                  "单词"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 42,
+                "cases": [
+                  {
+                    "id": 324797962,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "成功",
+                    "responseId": "179147447",
+                    "parameters": {
+                      "path": [
+                        {
+                          "id": "id#0",
+                          "relatedId": "id#0",
+                          "relatedName": "id",
+                          "name": "id",
+                          "value": "",
+                          "enable": true
+                        }
+                      ],
+                      "query": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "data": "",
+                      "type": "application/json",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 6682045,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {},
+                    "inheritPreProcessors": {}
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 6682045,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {},
+                "inheritPreProcessors": {}
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "socketCollection": [],
+  "docCollection": [],
+  "webSocketCollection": [],
+  "socketIOCollection": [],
+  "responseCollection": [
+    {
+      "_databaseId": 8001125,
+      "updatedAt": "2025-12-03T06:06:47.000Z",
+      "name": "根目录",
+      "type": "root",
+      "children": [],
+      "moduleId": 6682045,
+      "parentId": 0,
+      "id": 8001125,
+      "ordering": [],
+      "items": []
+    }
+  ],
+  "schemaCollection": [
+    {
+      "id": 17510147,
+      "name": "根目录",
+      "visibility": "SHARED",
+      "moduleId": 6682045,
+      "items": [
+        {
+          "name": "star.api.account.v1.InfoReq",
+          "displayName": "",
+          "id": "#/definitions/225531309",
+          "description": "",
+          "schema": {
+            "jsonSchema": {
+              "properties": {},
+              "type": "object",
+              "x-apifox-orders": []
+            }
+          },
+          "visibility": "INHERITED",
+          "moduleId": 6682045
+        },
+        {
+          "name": "star.api.account.v1.InfoRes",
+          "displayName": "",
+          "id": "#/definitions/225531310",
+          "description": "",
+          "schema": {
+            "jsonSchema": {
+              "properties": {
+                "username": {
+                  "description": "用户名",
+                  "format": "string",
+                  "type": "string"
+                },
+                "email": {
+                  "description": "邮箱",
+                  "format": "string",
+                  "type": "string"
+                },
+                "created": {
+                  "description": "创建时间",
+                  "format": "*gtime.Time",
+                  "type": "string"
+                },
+                "update": {
+                  "description": "更新时间",
+                  "format": "*gtime.Time",
+                  "type": "string"
+                }
+              },
+              "type": "object",
+              "x-apifox-orders": [
+                "username",
+                "email",
+                "created",
+                "update"
+              ]
+            }
+          },
+          "visibility": "INHERITED",
+          "moduleId": 6682045
+        },
+        {
+          "name": "star.api.users.v1.LoginReq",
+          "displayName": "",
+          "id": "#/definitions/225531311",
+          "description": "",
+          "schema": {
+            "jsonSchema": {
+              "properties": {
+                "username": {
+                  "format": "string",
+                  "maxLength": 12,
+                  "minLength": 3,
+                  "type": "string"
+                },
+                "password": {
+                  "format": "string",
+                  "maxLength": 16,
+                  "minLength": 6,
+                  "type": "string"
+                }
+              },
+              "required": [
+                "username",
+                "password"
+              ],
+              "type": "object",
+              "x-apifox-orders": [
+                "username",
+                "password"
+              ]
+            }
+          },
+          "visibility": "INHERITED",
+          "moduleId": 6682045
+        },
+        {
+          "name": "star.api.users.v1.LoginRes",
+          "displayName": "",
+          "id": "#/definitions/225531312",
+          "description": "",
+          "schema": {
+            "jsonSchema": {
+              "properties": {
+                "token": {
+                  "description": "在需要鉴权的接口中header加入Authorization: token",
+                  "format": "string",
+                  "type": "string"
+                }
+              },
+              "type": "object",
+              "x-apifox-orders": [
+                "token"
+              ]
+            }
+          },
+          "visibility": "INHERITED",
+          "moduleId": 6682045
+        },
+        {
+          "name": "star.api.users.v1.RegisterReq",
+          "displayName": "",
+          "id": "#/definitions/225531313",
+          "description": "",
+          "schema": {
+            "jsonSchema": {
+              "properties": {
+                "username": {
+                  "description": "用户名",
+                  "format": "string",
+                  "maxLength": 12,
+                  "minLength": 3,
+                  "type": "string"
+                },
+                "password": {
+                  "description": "密码",
+                  "format": "string",
+                  "maxLength": 16,
+                  "minLength": 6,
+                  "type": "string"
+                },
+                "email": {
+                  "description": "邮箱",
+                  "format": "string",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "username",
+                "password",
+                "email"
+              ],
+              "type": "object",
+              "x-apifox-orders": [
+                "username",
+                "password",
+                "email"
+              ]
+            }
+          },
+          "visibility": "INHERITED",
+          "moduleId": 6682045
+        },
+        {
+          "name": "star.api.users.v1.RegisterRes",
+          "displayName": "",
+          "id": "#/definitions/225531314",
+          "description": "",
+          "schema": {
+            "jsonSchema": {
+              "properties": {},
+              "type": "object",
+              "x-apifox-orders": []
+            }
+          },
+          "visibility": "INHERITED",
+          "moduleId": 6682045
+        },
+        {
+          "name": "star.api.words.v1.CreateReq",
+          "displayName": "",
+          "id": "#/definitions/225531315",
+          "description": "",
+          "schema": {
+            "jsonSchema": {
+              "properties": {
+                "word": {
+                  "description": "单词",
+                  "format": "string",
+                  "maxLength": 100,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "definition": {
+                  "description": "单词定义",
+                  "format": "string",
+                  "maxLength": 300,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "example_sentence": {
+                  "description": "例句",
+                  "format": "string",
+                  "maxLength": 300,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "chinese_translation": {
+                  "description": "中文翻译",
+                  "format": "string",
+                  "maxLength": 300,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "pronunciation": {
+                  "description": "发音",
+                  "format": "string",
+                  "maxLength": 100,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "proficiency_level": {
+                  "description": "熟练度，1最低，5最高",
+                  "format": "v1.ProficiencyLevel",
+                  "maximum": 5,
+                  "minimum": 1,
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "word",
+                "definition",
+                "example_sentence",
+                "chinese_translation",
+                "pronunciation",
+                "proficiency_level"
+              ],
+              "type": "object",
+              "x-apifox-orders": [
+                "word",
+                "definition",
+                "example_sentence",
+                "chinese_translation",
+                "pronunciation",
+                "proficiency_level"
+              ]
+            }
+          },
+          "visibility": "INHERITED",
+          "moduleId": 6682045
+        },
+        {
+          "name": "star.api.words.v1.ListReq",
+          "displayName": "",
+          "id": "#/definitions/225577522",
+          "description": "",
+          "schema": {
+            "jsonSchema": {
+              "properties": {
+                "word": {
+                  "description": "模糊查询单词",
+                  "format": "string",
+                  "maxLength": 100,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "page": {
+                  "description": "页码，默认1",
+                  "format": "int",
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "size": {
+                  "description": "每页数量，默认10",
+                  "format": "int",
+                  "maximum": 100,
+                  "minimum": 1,
+                  "type": "integer"
+                }
+              },
+              "type": "object",
+              "x-apifox-orders": [
+                "word",
+                "page",
+                "size"
+              ]
+            }
+          },
+          "visibility": "INHERITED",
+          "moduleId": 6682045
+        },
+        {
+          "name": "star.api.words.v1.CreateRes",
+          "displayName": "",
+          "id": "#/definitions/225531316",
+          "description": "",
+          "schema": {
+            "jsonSchema": {
+              "properties": {},
+              "type": "object",
+              "x-apifox-orders": []
+            }
+          },
+          "visibility": "INHERITED",
+          "moduleId": 6682045
+        },
+        {
+          "name": "star.api.words.v1.ListRes",
+          "displayName": "",
+          "id": "#/definitions/225577523",
+          "description": "",
+          "schema": {
+            "jsonSchema": {
+              "properties": {
+                "list": {
+                  "format": "[]v1.List",
+                  "items": {
+                    "$ref": "#/definitions/225577524",
+                    "description": ""
+                  },
+                  "type": "array"
+                },
+                "total": {
+                  "format": "uint",
+                  "type": "integer"
+                }
+              },
+              "type": "object",
+              "x-apifox-orders": [
+                "list",
+                "total"
+              ]
+            }
+          },
+          "visibility": "INHERITED",
+          "moduleId": 6682045
+        },
+        {
+          "name": "star.api.words.v1.UpdateReq",
+          "displayName": "",
+          "id": "#/definitions/225544370",
+          "description": "",
+          "schema": {
+            "jsonSchema": {
+              "properties": {
+                "id": {
+                  "format": "uint",
+                  "type": "integer"
+                },
+                "word": {
+                  "description": "单词",
+                  "format": "string",
+                  "maxLength": 100,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "definition": {
+                  "description": "单词定义",
+                  "format": "string",
+                  "maxLength": 300,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "example_sentence": {
+                  "description": "例句",
+                  "format": "string",
+                  "maxLength": 300,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "chinese_translation": {
+                  "description": "中文翻译",
+                  "format": "string",
+                  "maxLength": 300,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "pronunciation": {
+                  "description": "发音",
+                  "format": "string",
+                  "maxLength": 100,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "proficiency_level": {
+                  "description": "熟练度，1最低，5最高",
+                  "format": "v1.ProficiencyLevel",
+                  "maximum": 5,
+                  "minimum": 1,
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "id",
+                "word",
+                "definition",
+                "example_sentence",
+                "chinese_translation",
+                "pronunciation",
+                "proficiency_level"
+              ],
+              "type": "object",
+              "x-apifox-orders": [
+                "id",
+                "word",
+                "definition",
+                "example_sentence",
+                "chinese_translation",
+                "pronunciation",
+                "proficiency_level"
+              ]
+            }
+          },
+          "visibility": "INHERITED",
+          "moduleId": 6682045
+        },
+        {
+          "name": "star.api.words.v1.List",
+          "displayName": "",
+          "id": "#/definitions/225577524",
+          "description": "",
+          "schema": {
+            "jsonSchema": {
+              "properties": {
+                "id": {
+                  "format": "uint",
+                  "type": "integer"
+                },
+                "word": {
+                  "format": "string",
+                  "type": "string"
+                },
+                "definition": {
+                  "format": "string",
+                  "type": "string"
+                },
+                "proficiencyLevel": {
+                  "format": "v1.ProficiencyLevel",
+                  "type": "integer"
+                }
+              },
+              "type": "object",
+              "x-apifox-orders": [
+                "id",
+                "word",
+                "definition",
+                "proficiencyLevel"
+              ]
+            }
+          },
+          "visibility": "INHERITED",
+          "moduleId": 6682045
+        },
+        {
+          "name": "star.api.words.v1.UpdateRes",
+          "displayName": "",
+          "id": "#/definitions/225544371",
+          "description": "",
+          "schema": {
+            "jsonSchema": {
+              "properties": {},
+              "type": "object",
+              "x-apifox-orders": []
+            }
+          },
+          "visibility": "INHERITED",
+          "moduleId": 6682045
+        },
+        {
+          "name": "star.api.words.v1.DetailReq",
+          "displayName": "",
+          "id": "#/definitions/225581938",
+          "description": "",
+          "schema": {
+            "jsonSchema": {
+              "properties": {
+                "id": {
+                  "format": "uint",
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "type": "object",
+              "x-apifox-orders": [
+                "id"
+              ]
+            }
+          },
+          "visibility": "INHERITED",
+          "moduleId": 6682045
+        },
+        {
+          "name": "star.api.words.v1.DeleteReq",
+          "displayName": "",
+          "id": "#/definitions/225612768",
+          "description": "",
+          "schema": {
+            "jsonSchema": {
+              "properties": {
+                "id": {
+                  "format": "uint",
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "type": "object",
+              "x-apifox-orders": [
+                "id"
+              ]
+            }
+          },
+          "visibility": "INHERITED",
+          "moduleId": 6682045
+        },
+        {
+          "name": "star.api.words.v1.RandListReq",
+          "displayName": "",
+          "id": "#/definitions/225618319",
+          "description": "",
+          "schema": {
+            "jsonSchema": {
+              "properties": {
+                "limit": {
+                  "description": "限制个数，默认50",
+                  "format": "uint",
+                  "maximum": 300,
+                  "minimum": 1,
+                  "type": "integer"
+                }
+              },
+              "type": "object",
+              "x-apifox-orders": [
+                "limit"
+              ]
+            }
+          },
+          "visibility": "INHERITED",
+          "moduleId": 6682045
+        },
+        {
+          "name": "star.api.words.v1.DetailRes",
+          "displayName": "",
+          "id": "#/definitions/225581939",
+          "description": "",
+          "schema": {
+            "jsonSchema": {
+              "properties": {
+                "id": {
+                  "format": "uint",
+                  "type": "integer"
+                },
+                "word": {
+                  "format": "string",
+                  "type": "string"
+                },
+                "definition": {
+                  "format": "string",
+                  "type": "string"
+                },
+                "exampleSentence": {
+                  "format": "string",
+                  "type": "string"
+                },
+                "chineseTranslation": {
+                  "format": "string",
+                  "type": "string"
+                },
+                "pronunciation": {
+                  "format": "string",
+                  "type": "string"
+                },
+                "proficiencyLevel": {
+                  "format": "v1.ProficiencyLevel",
+                  "type": "integer"
+                },
+                "createdAt": {
+                  "format": "*gtime.Time",
+                  "type": "string"
+                },
+                "updatedAt": {
+                  "format": "*gtime.Time",
+                  "type": "string"
+                }
+              },
+              "type": "object",
+              "x-apifox-orders": [
+                "id",
+                "word",
+                "definition",
+                "exampleSentence",
+                "chineseTranslation",
+                "pronunciation",
+                "proficiencyLevel",
+                "createdAt",
+                "updatedAt"
+              ]
+            }
+          },
+          "visibility": "INHERITED",
+          "moduleId": 6682045
+        },
+        {
+          "name": "star.api.words.v1.DeleteRes",
+          "displayName": "",
+          "id": "#/definitions/225612769",
+          "description": "",
+          "schema": {
+            "jsonSchema": {
+              "properties": {},
+              "type": "object",
+              "x-apifox-orders": []
+            }
+          },
+          "visibility": "INHERITED",
+          "moduleId": 6682045
+        },
+        {
+          "name": "star.api.words.v1.RandListRes",
+          "displayName": "",
+          "id": "#/definitions/225618320",
+          "description": "",
+          "schema": {
+            "jsonSchema": {
+              "properties": {
+                "list": {
+                  "format": "[]v1.List",
+                  "items": {
+                    "$ref": "#/definitions/225577524",
+                    "description": ""
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object",
+              "x-apifox-orders": [
+                "list"
+              ]
+            }
+          },
+          "visibility": "INHERITED",
+          "moduleId": 6682045
+        },
+        {
+          "name": "star.api.words.v1.SetLevelReq",
+          "displayName": "",
+          "id": "#/definitions/225621426",
+          "description": "",
+          "schema": {
+            "jsonSchema": {
+              "properties": {
+                "id": {
+                  "format": "uint",
+                  "type": "integer"
+                },
+                "level": {
+                  "format": "v1.ProficiencyLevel",
+                  "maximum": 5,
+                  "minimum": 1,
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "id",
+                "level"
+              ],
+              "type": "object",
+              "x-apifox-orders": [
+                "id",
+                "level"
+              ]
+            }
+          },
+          "visibility": "INHERITED",
+          "moduleId": 6682045
+        },
+        {
+          "name": "star.api.words.v1.SetLevelRes",
+          "displayName": "",
+          "id": "#/definitions/225621427",
+          "description": "",
+          "schema": {
+            "jsonSchema": {
+              "properties": {},
+              "type": "object",
+              "x-apifox-orders": []
+            }
+          },
+          "visibility": "INHERITED",
+          "moduleId": 6682045
+        }
+      ]
+    }
+  ],
+  "securitySchemeCollection": [
+    {
+      "id": 2695734,
+      "moduleId": 6682045,
+      "name": "根目录",
+      "items": [],
+      "ordering": []
+    }
+  ],
+  "requestCollection": [
+    {
+      "name": "根目录",
+      "children": [],
+      "ordering": [
+        "requestFolder.8028114"
+      ],
+      "items": []
+    }
+  ],
+  "apiTestCaseCollection": [
+    {
+      "name": "Root",
+      "children": [],
+      "items": []
+    }
+  ],
+  "testCaseReferences": [],
+  "environments": [],
+  "commonScripts": [],
+  "databaseConnections": [],
+  "globalVariables": [],
+  "commonParameters": null,
+  "projectSetting": {
+    "id": "7544071",
+    "auth": {},
+    "securityScheme": {},
+    "gateway": [],
+    "language": "zh-CN",
+    "apiStatuses": [
+      "developing",
+      "testing",
+      "released",
+      "deprecated"
+    ],
+    "mockSettings": {},
+    "preProcessors": [],
+    "postProcessors": [],
+    "advancedSettings": {
+      "enableJsonc": false,
+      "enableBigint": false,
+      "responseValidate": true,
+      "enableTestScenarioSetting": false,
+      "enableYAPICompatScript": false,
+      "isDefaultUrlEncoding": 2,
+      "publishedDocUrlRules": {
+        "defaultRule": "RESOURCE_KEY_ONLY",
+        "resourceKeyStandard": "NEW"
+      }
+    },
+    "initialDisabledMockIds": [],
+    "servers": [
+      {
+        "id": "default",
+        "name": "默认服务"
+      }
+    ],
+    "cloudMock": {
+      "security": "free",
+      "enable": false,
+      "tokenKey": "apifoxToken"
+    }
+  },
+  "customFunctions": [],
+  "projectTestCaseCategories": [
+    {
+      "id": 4842014,
+      "name": "正向",
+      "description": "有效的输入和正确的预期结果，代表典型的用法。"
+    },
+    {
+      "id": 4842015,
+      "name": "负向",
+      "description": "消极的、无效的输入，如缺少字段、错误的类型、不支持的方法等。"
+    },
+    {
+      "id": 4842016,
+      "name": "边界值",
+      "description": "极端或边缘条件，如最大字符串长度、空值、零、null等"
+    },
+    {
+      "id": 4842017,
+      "name": "安全性",
+      "description": "可能暴露API安全性风险的测试用例。"
+    },
+    {
+      "id": 4842018,
+      "name": "其他",
+      "description": "其他未归属的测试用例。"
+    }
+  ],
+  "projectTestCaseTags": [
+    {
+      "id": 13082347,
+      "name": "仅传必要字段",
+      "description": "仅发送具有有效值的必填字段，省略所有可选字段，以测试最小有效请求。"
+    },
+    {
+      "id": 13082348,
+      "name": "语义合法",
+      "description": "使用语法正确且在业务逻辑或域上下文中也有意义的值。"
+    },
+    {
+      "id": 13082349,
+      "name": "覆盖枚举组合",
+      "description": "对所有枚举型参数，应用正交设计系统地构建参数及其枚举值的测试用例组合，专用于测试枚举覆盖率"
+    },
+    {
+      "id": 13082350,
+      "name": "其他正向",
+      "description": "提供符合API规范的真实有效的输入，产生正确和预期的结果。"
+    },
+    {
+      "id": 13082351,
+      "name": "缺失必填字段",
+      "description": "在请求主体或参数中省略一个或多个必需字段。"
+    },
+    {
+      "id": 13082352,
+      "name": "无效值",
+      "description": "提供的值类型和格式正确，但在逻辑上对该字段无效。"
+    },
+    {
+      "id": 13082353,
+      "name": "类型错误",
+      "description": "使用数据类型不正确的值，例如发送字符串而不是整数。"
+    },
+    {
+      "id": 13082354,
+      "name": "格式错误",
+      "description": "以不正确的格式提供值，例如，错误的日期模式，格式错误的电子邮件地址。"
+    },
+    {
+      "id": 13082355,
+      "name": "语义非法",
+      "description": "使用语法正确且格式正确的值，这些值在逻辑上不可能或违反域规则。"
+    },
+    {
+      "id": 13082356,
+      "name": "其他负向",
+      "description": "提供无效或意外的输入，应触发错误处理或拒绝API。"
+    },
+    {
+      "id": 13082357,
+      "name": "Null",
+      "description": "必须是 JSON 字面量 `null`（不是空的，也不是 \"null\"）。"
+    },
+    {
+      "id": 13082358,
+      "name": "零值",
+      "description": "必须是数字字面值0。"
+    },
+    {
+      "id": 13082359,
+      "name": "空值",
+      "description": "必须是\"\"。"
+    },
+    {
+      "id": 13082360,
+      "name": "极大值",
+      "description": "Max/min值 - 为数字或日期字段提供精确的最小值和最大值。"
+    },
+    {
+      "id": 13082361,
+      "name": "极小值",
+      "description": "Max/min值 - 为数字或日期字段提供精确的最小值和最大值。"
+    },
+    {
+      "id": 13082362,
+      "name": "超出最大边界值",
+      "description": "过长/过短字符串 - 提供超出允许的最小或最大边界的值。"
+    },
+    {
+      "id": 13082363,
+      "name": "超出最小边界值",
+      "description": "过长/过短字符串 - 提供超出允许的最小或最大边界的值。"
+    },
+    {
+      "id": 13082364,
+      "name": "字符串过长",
+      "description": "超出范围的值 - 提供大于允许的最大长度或小于要求的最小长度的字符串。"
+    },
+    {
+      "id": 13082365,
+      "name": "字符串过短",
+      "description": "超出范围的值 - 提供大于允许的最大长度或小于要求的最小长度的字符串。"
+    },
+    {
+      "id": 13082366,
+      "name": "对象级别授权缺失",
+      "description": "对象级别授权缺失 - 用户在没有适当授权的情况下访问或操作数据对象。"
+    },
+    {
+      "id": 13082367,
+      "name": "访问控制",
+      "description": "基于角色、权限或属性来限制用户能访问哪些资源、能执行哪些操作"
+    },
+    {
+      "id": 13082368,
+      "name": "认证失败",
+      "description": "认证失败 - 认证薄弱、配置错误或被绕过，导致未授权访问。"
+    },
+    {
+      "id": 13082369,
+      "name": "SQL注入",
+      "description": "在输入字段中插入恶意SQL代码，测试是否存在SQL注入漏洞。"
+    },
+    {
+      "id": 13082370,
+      "name": "XSS注入",
+      "description": "注入JavaScript或HTML标签来测试跨站点脚本漏洞。"
+    },
+    {
+      "id": 13082371,
+      "name": "模糊输入",
+      "description": "发送大型或随机生成的有效载荷，以测试输入的有效性和稳定性。"
+    },
+    {
+      "id": 13082372,
+      "name": "命令行注入",
+      "description": "将shell命令插入输入以测试命令执行漏洞。"
+    },
+    {
+      "id": 13082373,
+      "name": "JSON注入",
+      "description": "插入恶意或意外的JSON结构来测试解析和验证。"
+    },
+    {
+      "id": 13082374,
+      "name": "NoSQL注入",
+      "description": "提供NoSQL特定的恶意查询或操作符来测试注入漏洞。"
+    },
+    {
+      "id": 13082375,
+      "name": "其他",
+      "description": "其他未归属的测试用例。"
+    }
+  ],
+  "projectAssociations": [],
+  "moduleSettings": [
+    {
+      "id": "6682045",
+      "name": "默认模块",
+      "description": "",
+      "moduleVariables": [],
+      "openApiInfo": {}
+    }
+  ]
+}
