@@ -8,7 +8,6 @@ import (
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/golang-jwt/jwt/v5"
 
-	"star/internal/consts"
 	"star/internal/dao"
 	"star/internal/model/entity"
 )
@@ -44,13 +43,17 @@ func (u *Users) Login(ctx context.Context, username, password string) (tokenStri
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, uc)
-	return token.SignedString([]byte(consts.JwtKey))
+	// 从配置文件读取 JWT 密钥
+	jwtSecret := g.Cfg().MustGet(context.Background(), "jwt.secret").String()
+	return token.SignedString([]byte(jwtSecret))
 }
 
 func (u *Users) Info(ctx context.Context) (user *entity.Users, err error) {
 	tokenString := g.RequestFromCtx(ctx).Request.Header.Get("Authorization")
 	tokenClaims, _ := jwt.ParseWithClaims(tokenString, &jwtClaims{}, func(token *jwt.Token) (interface{}, error) {
-		return []byte(consts.JwtKey), nil
+		// 从配置文件读取 JWT 密钥
+		jwtSecret := g.Cfg().MustGet(context.Background(), "jwt.secret").String()
+		return []byte(jwtSecret), nil
 	})
 
 	if claims, ok := tokenClaims.Claims.(*jwtClaims); ok && tokenClaims.Valid {
