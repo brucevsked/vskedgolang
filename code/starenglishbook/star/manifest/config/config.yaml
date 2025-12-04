@@ -1,0 +1,20 @@
+# https://goframe.org/docs/web/server-config-file-template
+server:
+  address:     ":8000" # 服务监听端口
+  openapiPath: "/api.json" #OpenAPI接口文档地址
+  swaggerPath: "/swagger"  #内置SwaggerUI展示地址
+  encoding: "UTF-8"
+
+# https://goframe.org/docs/core/glog-config
+logger:
+  level : "all"
+  stdout: true
+
+# https://goframe.org/docs/core/gdb-config-file
+database:
+  default:
+    link: "mysql:starenglishbook:starenglishbook@tcp(127.0.0.1:3306)/starenglishbook?loc=Local&charset=utf8mb4"
+    debug: true
+
+jwt:
+  secret: "xiujiezhiliang888zhen666tailihai"
