@@ -1,0 +1,72 @@
+理解业务逻辑，并设计数据库表结构，新建完表结构以后
+
+先生成dao层代码
+gf gen dao
+
+再定义api，定义api时可以添加参数校验
+路径与内容示例如下
+api/words/v1/words.go
+
+type DeleteReq struct {  
+    g.Meta `path:"words/{id}" method:"delete" sm:"删除" tags:"单词"`  
+    Id     uint `json:"id" v:"required"`  
+}  
+  
+type DeleteRes struct {  
+}
+
+有参数校验的api  
+type RegisterReq struct {  
+    g.Meta   `path:"users/register" method:"post"`  
+    Username string `json:"username" v:"required|length:3,12"`  
+    Password string `json:"password" v:"required|length:6,16"`  
+    Email    string `json:"email" v:"required|email"`  
+}  
+  
+
+
+再生成控制器代码
+ gf gen ctrl
+
+ 再编写Logic，在logic中可以进行详细业务处理，处理前应先对数据合法性进行判断，如数据类型，数据长度，数据范围，数据格式等等。
+ internal/logic/words/words.go
+ ...
+
+func (w *Words) Delete(ctx context.Context, uid, id uint) (err error) {  
+    var (  
+       cls = dao.Words.Columns()  
+       orm = dao.Words.Ctx(ctx)  
+    )  
+    orm = orm.Where(cls.Id, id)  
+    if uid > 0 {  
+       orm = orm.Where(cls.Uid, uid)  
+    }  
+    _, err = orm.Delete()  
+    return  
+}
+
+Controller调用Logic
+internal/controller/words/words_v1_delete.go
+package words  
+  
+import (  
+    "context"  
+  
+    "star/api/words/v1"
+)  
+  
+func (c *ControllerV1) Delete(ctx context.Context, req *v1.DeleteReq) (res *v1.DeleteRes, err error) {  
+    uid, err := c.users.GetUid(ctx)  
+    if err != nil {  
+       return nil, err  
+    }  
+  
+    err = c.words.Delete(ctx, uid, req.Id)  
+    return  
+}
+
+最后接口测试
+提前准备好jwt的token
+使用apifox导入新开发的接口
+编辑apifox导入的接口说明，示例数据等信息
+测试开发好的接口即可

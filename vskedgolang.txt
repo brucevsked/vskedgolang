@@ -31,6 +31,45 @@ go get github.com/go-sql-driver/mysql@v1.5.0
 
 
 
+GoFrame相关命令
+
+查看当前GoFrame版本
+gf version
+
+初始化项目
+gf init 项目名
+gf init starenglishbook
+
+升级项目
+gf up
+
+运行主程序
+gf run main.go
+
+生成api，每次在api相关目录建立新文件后，都要执行生成命令
+gf gen ctrl
+
+API的文件路径与结构
+api/users/v1/users.go
+
+package v1
+
+import "github.com/gogf/gf/v2/frame/g"
+
+type RegisterReq struct {
+    g.Meta   `path:"users/register" method:"post"`
+    Username string `json:"username"`
+    Password string `json:"password"`
+    Email    string `json:"email"`
+}
+
+type RegisterRes struct {
+}
+
+
+
+生成数据模型，在有新建的表或更新表结构后执行
+gf gen dao
 
 
 
